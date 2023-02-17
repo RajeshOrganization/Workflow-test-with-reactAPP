@@ -17,5 +17,5 @@ jobs:
       - run: echo "compute the job was triggered by a ${{ github.event_name }} event and will be run on a ${{ runner.os }} runner in the ${{ github.repository }} repository."
       - run: echo "compute completed successfully"
       - run: end_time=$(date -u +'%Y-%m-%dT%H:%M:%SZ') && echo "end_time=$end_time" 
-      - run: echo "duration=$(($(date -u -d "$end_time" +'%s') - $(date -u -d "$start_time" +'%s')))"
+      - run: echo duration=$(($(date -u -d "$end_time" +'%s') - $(date -u -d "$start_time" +'%s'))) && echo "duration=$duration"
      
