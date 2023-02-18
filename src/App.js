@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-           finally deployed woohoo!!! with github actions
+           finally deployed woohoo!!! with github actions Hey class how is it going
         </p>
         <a
           className="App-link"
