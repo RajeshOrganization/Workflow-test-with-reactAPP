@@ -1,0 +1,51 @@
+# This workflow will build and push a new container image to Amazon ECR,
+# and then will deploy a new task definition to Amazon ECS, when there is a push to the "master" branch.
+# githu workflow
+name: Deploy Reactapp to Amazon ec2
+
+on:
+  push:
+      branches: [ master ]
+  pull_request:
+      branches: [ master ]
+
+jobs:
+  test:
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@v2
+      - name: Install Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14'          
+      - name: Install dependencies
+        run: npm install      
+      - name: test
+        run: npm run test
+     
+
+  Deploy:
+      runs-on: ubuntu-latest
+      needs: test
+      steps:
+      - name: SSH to ec2 and deploy the code and start the server
+        uses: appleboy/ssh-action@master
+        with:
+            host: ${{ secrets.DUMMY_SSH_HOST }}
+            username: ${{ secrets.DUMMY_USERNAME }}
+            key: ${{ secrets.DUMMY_PRIVATE_KEY }}
+            port: ${{ secrets.SSH_PORT }}
+            script: |
+                  cd /home/ubuntu
+                  pm2 kill
+                  rm -rf Workflow-test-with-reactAPP
+                  git clone https://github.com/RajeshOrganization/Workflow-test-with-reactAPP.git
+                  cd Workflow-test-with-reactAPP
+                  npm run build     
+                  npm run start
+
+
+
+
+                
+
