@@ -36,11 +36,11 @@ jobs:
             key: ${{ secrets.PRIVATE_KEY }}
             port: ${{ secrets.SSH_PORT }}
             script: |
-                  cd /home/ubuntu
-                  pm2 kill
+                  cd /home/ubuntu                  
                   rm -rf Workflow-test-with-reactAPP
                   git clone https://github.com/RajeshOrganization/Workflow-test-with-reactAPP.git
                   cd Workflow-test-with-reactAPP
+                  npm install
                   npm run build     
                   npm run start
 
